@@ -1,0 +1,52 @@
+/* miniprogram/pages/bills/bills.wxss */
+.table {
+  width: 100%;
+  border: 1rpx solid #ccc;
+}
+
+.th {
+  background: rgb(26, 173, 25);
+  /* font-size: 14rpx; */
+  font-weight: bold;
+  color: #fff;
+  width: 100%;
+  padding: 5rpx;
+  text-align: center;
+  /* border: 1rpx solid #ccc; */
+}
+
+.tr {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.td {
+  width: 100%;
+  padding: 5rpx;
+  text-align: center;
+  border: 1rpx solid #ccc;
+}
+
+.td-name {
+  width: 100%;
+  padding: 5rpx;
+  text-align: center;
+  border: 1rpx solid #ccc;
+}
+
+.td-bottom {
+  width: 100%;
+  padding: 5rpx;
+  /* text-align: center; */
+}
+
+.amount {
+  color: rgb(230, 67, 64);
+  text-align: center;
+}
+
+.icon {
+  padding: 5rpx;
+  /* border: 1rpx solid #ccc; */
+}
