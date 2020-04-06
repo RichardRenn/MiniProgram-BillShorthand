@@ -139,7 +139,7 @@ Page({
   /**
    * 改变一行的金额
    */
-  changeMoney: function (e) {
+  changeLineData: function (e) {
     var totalAmount = 0.0
     var lineDatas = this.data.lineDatas
     // console.log(e)

@@ -19,13 +19,13 @@
         <mp-icon icon="add2" color="rgb(26, 173, 25)" type="field" size="{{iconSize}}"></mp-icon>
       </view>
       <view class="td">
-        <input data-idx="{{index}}" data-prop="name" class="weui-input" type="text" placeholder="请输入.." value="{{item.name}}"/>
+        <input data-idx="{{index}}" data-prop="name" class="weui-input" bindinput="changeLineData" type="text" placeholder="请输入.." value="{{item.name}}"/>
       </view>
       <view class="td">
-        <input data-idx="{{index}}" data-prop="num" class="weui-input" bindinput="changeMoney" type="digit" placeholder="0.0" value="{{item.num}}"/>
+        <input data-idx="{{index}}" data-prop="num" class="weui-input" bindinput="changeLineData" type="digit" placeholder="0.0" value="{{item.num}}"/>
       </view>
       <view class="td">
-        <input data-idx="{{index}}" data-prop="price" class="weui-input" bindinput="changeMoney" type="digit" placeholder="0.0" value="{{item.price}}"/>
+        <input data-idx="{{index}}" data-prop="price" class="weui-input" bindinput="changeLineData" type="digit" placeholder="0.0" value="{{item.price}}"/>
       </view>
       <view class="td amount">
         <input data-idx="{{index}}" data-prop="money" class="weui-input" type="digit" value="{{item.money}}" disabled="true"/></view>
