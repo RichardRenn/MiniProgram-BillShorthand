@@ -1,36 +1,36 @@
 <!--miniprogram/pages/bills/bills.wxml-->
-<view class="table">
+<view>
   <!-- <mp-dialog title="test" show="{{true}}" bindbuttontap="tapDialogButton" buttons="{{[{text: '取消'}, {text: '确认'}]}}">
     <view>test content</view>
   </mp-dialog> -->
   <view class="tr">
-    <view class="icon" bindtap="addLine"><mp-icon icon="add2" color="rgb(26, 173, 25)" type="field" size="{{iconSize}}"></mp-icon></view>
-    <view class="th">品名</view>
-    <view class="th">数量</view>
-    <view class="th">单价</view>
-    <view class="th">金额</view>
-    <!-- <view class="icon" bindtap="delLine"><mp-icon icon="close2" color="rgb(230, 67, 64)" type="field" size="{{iconSize}}"></mp-icon></view> -->
-    <view class="icon" bindtap="delAllLine"><mp-icon icon="delete" color="rgb(230, 67, 64)" type="field" size="{{iconSize}}"></mp-icon></view>
+    <view class="icon" bindtap="addLine"><mp-icon icon="add2" color="#07c160" type="field" size="{{iconSize}}"></mp-icon></view>
+    <view class="th name">品 名</view>
+    <view class="th">数 量</view>
+    <view class="th">单 价</view>
+    <view class="th">金 额</view>
+    <!-- <view class="icon" bindtap="delLine"><mp-icon icon="close2" color="#fa5151" type="field" size="{{iconSize}}"></mp-icon></view> -->
+    <view class="icon" bindtap="delAllLine"><mp-icon icon="delete" color="#fa5151" type="field" size="{{iconSize}}"></mp-icon></view>
   </view>
 
-  <block wx:for="{{lineDatas}}" wx:key="index">
+  <block wx:for="{{lineData}}" wx:key="index">
     <view class="tr">
       <view class="icon" data-idx="{{index}}" bindtap="addPosLine">
-        <mp-icon icon="add2" color="rgb(26, 173, 25)" type="field" size="{{iconSize}}"></mp-icon>
+        <mp-icon icon="add2" color="#07c160" type="field" size="{{iconSize}}"></mp-icon>
       </view>
-      <view class="td">
+      <view class="td {{index%2==1 ? 'td-bkgd' : ''}} name">
         <input data-idx="{{index}}" data-prop="name" class="weui-input" bindinput="changeLineData" type="text" placeholder="请输入.." value="{{item.name}}"/>
       </view>
-      <view class="td">
+      <view class="td {{index%2==1 ? 'td-bkgd' : ''}}">
         <input data-idx="{{index}}" data-prop="num" class="weui-input" bindinput="changeLineData" type="digit" placeholder="0.0" value="{{item.num}}"/>
       </view>
-      <view class="td">
+      <view class="td {{index%2==1 ? 'td-bkgd' : ''}}">
         <input data-idx="{{index}}" data-prop="price" class="weui-input" bindinput="changeLineData" type="digit" placeholder="0.0" value="{{item.price}}"/>
       </view>
-      <view class="td amount">
+      <view class="td {{index%2==1 ? 'td-bkgd' : ''}} amount">
         <input data-idx="{{index}}" data-prop="money" class="weui-input" type="digit" value="{{item.money}}" disabled="true"/></view>
       <view class="icon" data-idx="{{index}}" bindtap="delPosLine">
-        <mp-icon icon="close2" color="rgb(230, 67, 64)" type="field" size="{{iconSize}}"></mp-icon>
+        <mp-icon icon="close2" color="#fa5151" type="field" size="{{iconSize}}"></mp-icon>
       </view>
     </view>
   </block>
@@ -38,9 +38,13 @@
   <view class="tr">
     <!-- <view class="td-bottom"><input class="weui-input" type="text" disabled="true"/></view> -->
     <!-- <view class="td-bottom"><input class="weui-input" type="text" disabled="true"/></view> -->
-    <!-- <view class="td-bottom"><input class="weui-input" type="text" disabled="true"/></view> -->
-    <view class="td-bottom amount"><input class="weui-input" type="text" value="总计" disabled="true"/></view>
+    <view class="icon"><input class="weui-input" type="text" disabled="true"/></view>
+    <view class="td-bottom amount"><input class="weui-input" type="text" value="总计:" disabled="true"/></view>
     <view class="td-bottom amount"><input class="weui-input" type="digit" value="{{totalAmount}}" disabled="true"/></view>
-    <!-- <view class="td-bottom"><input class="weui-input" type="text" disabled="true"/></view> -->
+    <view class="icon"><input class="weui-input" type="text" disabled="true"/></view>
+  </view>
+
+  <view class="share-button">
+    <button size="default" type="primary" open-type='share'>点击分享账单</button>
   </view>
 </view>

@@ -1,15 +1,15 @@
 /* miniprogram/pages/bills/bills.wxss */
 .table {
   width: 100%;
-  border: 1rpx solid #ccc;
+  /* border: 1rpx solid #ccc; */
 }
 
 .th {
-  background: rgb(26, 173, 25);
+  background: #07c160;
   /* font-size: 14rpx; */
   font-weight: bold;
   color: #fff;
-  width: 100%;
+  width: 20%;
   padding: 5rpx;
   text-align: center;
   /* border: 1rpx solid #ccc; */
@@ -19,34 +19,46 @@
   width: 100%;
   display: flex;
   justify-content: space-around;
+  /* background: #ccc; */
 }
 
 .td {
-  width: 100%;
+  width: 20%;
   padding: 5rpx;
   text-align: center;
-  border: 1rpx solid #ccc;
+  border: 1rpx solid rgb(238, 238, 238);
+  /* background: #ccc; */
 }
 
-.td-name {
-  width: 100%;
-  padding: 5rpx;
-  text-align: center;
-  border: 1rpx solid #ccc;
+.name {
+  width: 40%;
+  /* text-align: left; */
+}
+
+.td-bkgd {
+  background: rgb(244, 255, 244);
 }
 
 .td-bottom {
-  width: 100%;
+  width: 50%;
   padding: 5rpx;
-  /* text-align: center; */
+  text-align: center;
+  font-weight: bold;
 }
 
 .amount {
-  color: rgb(230, 67, 64);
-  text-align: center;
+  color: #fa5151;
 }
 
 .icon {
   padding: 5rpx;
+  width: 8%;
+  text-align: center;
   /* border: 1rpx solid #ccc; */
+}
+
+.share-button {
+  width: 100%;
+  margin-top: 30rpx;
+  text-align: center;
 }

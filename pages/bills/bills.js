@@ -1,4 +1,6 @@
 // miniprogram/pages/bills/bills.js
+var util = require('../../utils/util.js')
+
 Page({
 
   /**
@@ -6,8 +8,8 @@ Page({
    */
   data: {
     iconSize: 25,
-    lineDatas: [],
-    totalAmount: 0.0,
+    lineData: [],
+    totalAmount: "0.00",
   },
 
   /**
@@ -15,20 +17,23 @@ Page({
    */
   onLoad: function (options) {
     try {
-      var totalAmount = 0.0
-      var lineDatas = wx.getStorageSync('billLineDatas')
+      // var lineData = wx.getStorageSync('billLineData')
+      var encodeBillLineData = options.encodeBillLineData
+      if (typeof (encodeBillLineData) != "undefined") {
+        var lineData = JSON.parse(decodeURIComponent(encodeBillLineData))
+        // console.log('lineData1:' + lineData)
+      } else {
+        var lineData = wx.getStorageSync('billLineData')
+        // console.log('lineData2:' + lineData)
+      }
+      // console.log('lineData3:' + lineData)
+      console.log('onLoad数据: ' + lineData)
 
-      if (lineDatas) {
-        for (let j = 0, len = lineDatas.length; j < len; j++) {
-          totalAmount += lineDatas[j].money
-        }
-        this.setData({
-          lineDatas: lineDatas,
-          totalAmount: totalAmount,
-        })
+      if (lineData) {
+        this.refreshData(lineData)
       }
     } catch (e) {
-      console.log(e)
+      console.log('onLoad数据加载错误: ' + e)
     }
   },
 
@@ -44,20 +49,13 @@ Page({
    */
   onShow: function () {
     try {
-      var totalAmount = 0.0
-      var lineDatas = wx.getStorageSync('billLineDatas')
-
-      if (lineDatas) {
-        for (let j = 0, len = lineDatas.length; j < len; j++) {
-          totalAmount += lineDatas[j].money
-        }
-        this.setData({
-          lineDatas: lineDatas,
-          totalAmount: totalAmount,
-        })
+      var lineData = wx.getStorageSync('billLineData')
+      console.log('onShow数据: ' + lineData)
+      if (lineData) {
+        this.refreshData(lineData)
       }
     } catch (e) {
-      console.log(e)
+      console.log('onShow数据加载错误: ' + e)
     }
   },
 
@@ -66,8 +64,8 @@ Page({
    */
   onHide: function () {
     wx.setStorage({
-      key: "billLineDatas",
-      data: this.data.lineDatas,
+      key: "billLineData",
+      data: this.data.lineData,
     })
   },
 
@@ -76,8 +74,8 @@ Page({
    */
   onUnload: function () {
     wx.setStorage({
-      key: "billLineDatas",
-      data: this.data.lineDatas,
+      key: "billLineData",
+      data: this.data.lineData,
     })
   },
 
@@ -99,27 +97,38 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    try {
+      var curTime = util.formatTime(new Date());
+      var encodeBillLineData = encodeURIComponent(JSON.stringify(this.data.lineData))
+      console.log('onShare数据: ' + encodeBillLineData)
+      return {
+        title: curTime,
+        desc: '我创建的账单',
+        path: '/pages/bills/bills?encodeBillLineData=' + encodeBillLineData // 路径，传递参数到指定页面。
+      }
+    } catch (e) {
+      console.log('分享数据错误: ' + e)
+    }
   },
 
   /**
    * 增加一行
    */
   addLine: function () {
-    var lineDatas = this.data.lineDatas
+    var lineData = this.data.lineData
     var newLineData = {
       name: "",
-      num: 0.0,
-      price: 0.0,
-      money: 0.0
+      num: 0.00,
+      price: 0.00,
+      money: "0.00",
     }
-    lineDatas.push(newLineData) // 添加数组内容，使for循环多一次
+    lineData.push(newLineData) // 添加数组内容，使for循环多一次
     this.setData({
-      lineDatas: lineDatas,
+      lineData: lineData,
     })
     wx.setStorage({
-      key: "billLineDatas",
-      data: this.data.lineDatas,
+      key: "billLineData",
+      data: this.data.lineData,
     })
   },
 
@@ -128,11 +137,11 @@ Page({
    */
   delAllLine: function () {
     this.setData({
-      lineDatas: [],
+      lineData: [],
     })
     wx.setStorage({
-      key: "billLineDatas",
-      data: this.data.lineDatas,
+      key: "billLineData",
+      data: this.data.lineData,
     })
   },
   
@@ -140,82 +149,76 @@ Page({
    * 改变一行的金额
    */
   changeLineData: function (e) {
-    var totalAmount = 0.0
-    var lineDatas = this.data.lineDatas
+    var lineData = this.data.lineData
     // console.log(e)
     var dataset = e.currentTarget.dataset
     var value = e.detail.value
     var idx = dataset.idx
     var prop = dataset.prop
     if (prop == "name") {
-      lineDatas[idx].name = value
+      lineData[idx].name = value
     } else if (prop == "num") {
-      lineDatas[idx].num = value
+      lineData[idx].num = value
     } else if (prop == "price") {
-      lineDatas[idx].price = value
+      lineData[idx].price = value
     }
-    lineDatas[idx].money = lineDatas[idx].num * lineDatas[idx].price
+    lineData[idx].money = (lineData[idx].num * lineData[idx].price).toFixed(2)
 
-    for (let j = 0, len = lineDatas.length; j < len; j++) {
-      totalAmount += lineDatas[j].money
-    }
-    this.setData({
-      lineDatas: lineDatas,
-      totalAmount: totalAmount,
-    })
-    wx.setStorage({
-      key: "billLineDatas",
-      data: this.data.lineDatas,
-    })
-    // console.log(this.data.lineDatas)
+    this.refreshData(lineData)
+    // console.log(this.data.lineData)
   },
 
   /**
    * 在当前行后增加一行
    */
   addPosLine: function (e) {
-    var lineDatas = this.data.lineDatas
+    var lineData = this.data.lineData
     // console.log(e)
     var dataset = e.currentTarget.dataset
     var idx = dataset.idx
     var newLineData = {
       name: "",
-      num: 0.0,
-      price: 0.0,
-      money: 0.0
+      num: 0.00,
+      price: 0.00,
+      money: "0.00",
     }
-    lineDatas.splice(idx+1, 0, newLineData) // 在数组中对应位置增加元素
+    lineData.splice(idx+1, 0, newLineData) // 在数组中对应位置增加元素
 
-    this.setData({
-      lineDatas: lineDatas,
-    })
-    wx.setStorage({
-      key: "billLineDatas",
-      data: this.data.lineDatas,
-    })
+    this.refreshData(lineData)
   },
 
   /**
    * 删除当前行
    */
   delPosLine: function(e) {
-    var totalAmount = 0.0
-    var lineDatas = this.data.lineDatas
+    var lineData = this.data.lineData
     // console.log(e)
     var dataset = e.currentTarget.dataset
     var idx = dataset.idx
-    lineDatas.splice(idx, 1) // 删除数组中对应的元素
-
-    for (let j = 0, len = lineDatas.length; j < len; j++) {
-      totalAmount += lineDatas[j].money
+    lineData.splice(idx, 1) // 删除数组中对应的元素
+    
+    this.refreshData(lineData)
+  },
+  
+  /**
+   * 刷新数据
+   */
+  refreshData: function (lineData) {
+    try {
+      var totalAmount = 0.00
+      for (let j = 0, len = lineData.length; j < len; j++) {
+        totalAmount += parseFloat(lineData[j].money)
+      }
+      this.setData({
+        lineData: lineData,
+        totalAmount: totalAmount.toFixed(2),
+      })
+      wx.setStorage({
+        key: "billLineData",
+        data: this.data.lineData,
+      })
+    } catch (e) {
+      console.log('刷新数据错误: ' + e)
     }
-    this.setData({
-      lineDatas: lineDatas,
-      totalAmount: totalAmount,
-    })
-    wx.setStorage({
-      key: "billLineDatas",
-      data: this.data.lineDatas,
-    })
   },
 })
