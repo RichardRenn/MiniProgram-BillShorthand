@@ -51,9 +51,25 @@ Page({
   //     hasUserInfo: true
   //   })
   // },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+    try {
+      return {
+        title: '',
+        desc: '灰帽子工具',
+        path: '/pages/index/index'
+      }
+    } catch (e) {
+      console.log('首页分享错误: ' + e)
+    }
+  },
+
   gotoPageBills: function () {
     wx.navigateTo({
       url: '/pages/bills/bills',
     })
-  }
+  },
 })

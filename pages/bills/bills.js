@@ -8,6 +8,7 @@ Page({
    */
   data: {
     iconSize: 25,
+    isEditMode: true,
     lineData: [],
     totalAmount: "0.00",
   },
@@ -21,13 +22,11 @@ Page({
       var encodeBillLineData = options.encodeBillLineData
       if (typeof (encodeBillLineData) != "undefined") {
         var lineData = JSON.parse(decodeURIComponent(encodeBillLineData))
-        // console.log('lineData1:' + lineData)
+        console.log('onLoad数据 - 来自URL参数:' + lineData)
       } else {
         var lineData = wx.getStorageSync('billLineData')
-        // console.log('lineData2:' + lineData)
+        console.log('onLoad数据 - 来自本地存储:' + lineData)
       }
-      // console.log('lineData3:' + lineData)
-      console.log('onLoad数据: ' + lineData)
 
       if (lineData) {
         this.refreshData(lineData)
@@ -103,11 +102,11 @@ Page({
       console.log('onShare数据: ' + encodeBillLineData)
       return {
         title: curTime,
-        desc: '我创建的账单',
+        desc: '账单详情',
         path: '/pages/bills/bills?encodeBillLineData=' + encodeBillLineData // 路径，传递参数到指定页面。
       }
     } catch (e) {
-      console.log('分享数据错误: ' + e)
+      console.log('账单页分享错误: ' + e)
     }
   },
 
@@ -118,8 +117,8 @@ Page({
     var lineData = this.data.lineData
     var newLineData = {
       name: "",
-      num: 0.00,
-      price: 0.00,
+      num: 1,
+      price: 0,
       money: "0.00",
     }
     lineData.push(newLineData) // 添加数组内容，使for循环多一次
@@ -136,13 +135,27 @@ Page({
    * 删除所有行
    */
   delAllLine: function () {
-    this.setData({
-      lineData: [],
+    var that = this
+    wx.showModal({
+      title: '清空账单',
+      content: '确定要清空当前账单吗？',
+      confirmColor: '#FA5151',
+      success(res) {
+        if (res.confirm) {
+          console.log('清空账单操作: 用户点击确定')
+          that.setData({
+            lineData: [],
+          })
+          wx.setStorage({
+            key: "billLineData",
+            data: that.data.lineData,
+          })
+        } else if (res.cancel) {
+          console.log('清空账单操作: 用户点击取消')
+        }
+      }
     })
-    wx.setStorage({
-      key: "billLineData",
-      data: this.data.lineData,
-    })
+    
   },
   
   /**
@@ -178,8 +191,8 @@ Page({
     var idx = dataset.idx
     var newLineData = {
       name: "",
-      num: 0.00,
-      price: 0.00,
+      num: 1,
+      price: 0,
       money: "0.00",
     }
     lineData.splice(idx+1, 0, newLineData) // 在数组中对应位置增加元素
@@ -205,20 +218,42 @@ Page({
    */
   refreshData: function (lineData) {
     try {
+      var that = this
       var totalAmount = 0.00
       for (let j = 0, len = lineData.length; j < len; j++) {
         totalAmount += parseFloat(lineData[j].money)
       }
-      this.setData({
+      that.setData({
         lineData: lineData,
         totalAmount: totalAmount.toFixed(2),
       })
+      console.log('totalAmount: ' + that.data.totalAmount)
       wx.setStorage({
         key: "billLineData",
-        data: this.data.lineData,
+        data: that.data.lineData,
       })
     } catch (e) {
       console.log('刷新数据错误: ' + e)
     }
   },
+
+  /**
+   * 保存
+   */
+  clickSave: function () {
+    this.setData({
+      isEditMode: false
+    })
+  },
+
+  /**
+   * 编辑
+   */
+  clickEdit: function () {
+    this.setData({
+      isEditMode: true
+    })
+  },
+
 })
+
