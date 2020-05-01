@@ -27,8 +27,9 @@
   width: 20%;
   /* padding-left: 1rpx; */
   /* padding-right: 1rpx; */
-  padding-top: 8rpx;
-  padding-bottom: 8rpx;
+  /* padding-top: 8rpx; */
+  /* padding-bottom: 8rpx; */
+  padding: 8rpx 0;
   text-align: left;
   overflow: hidden;
   background: #07c160;
@@ -48,16 +49,21 @@
 
 .tr-td {
   width: 20%;
-  /* padding-left: 1rpx; */
-  /* padding-right: 1rpx; */
-  padding-top: 8rpx;
-  padding-bottom: 8rpx;
+  padding: 8rpx 0;
   text-align: left;
   overflow: hidden;
   /* border-left: 1rpx solid rgb(238, 238, 238); */
   /* border-top: 1rpx solid rgb(238, 238, 238); */
   /* border-bottom: 1rpx solid rgb(238, 238, 238); */
   /* border: 1rpx solid rgb(238, 238, 238); */
+}
+
+.top-left-radius {
+  border-top-left-radius: 8rpx;
+}
+
+.top-right-radius {
+  border-top-right-radius: 8rpx;
 }
 
 .name {
@@ -67,10 +73,6 @@
 
 .money {
   width: 28%;
-}
-
-.red {
-  color: #fa5151;
 }
 
 .icon {
@@ -93,15 +95,13 @@
 
 .bottom-line {
   width: 100%;
-  padding-top: 8rpx;
-  padding-bottom: 8rpx;
+  padding: 8rpx 0;
   text-align: center;
   font-weight: bold;
 }
 
 .menu {
   margin-top: 20rpx;
-  padding: 5rpx;
   width: 100%;
   display: flex;
   flex-direction: row;

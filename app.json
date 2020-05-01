@@ -2,7 +2,9 @@
   "pages": [
     "pages/index/index",
     "pages/logs/logs",
-    "pages/bills/bills"
+    "pages/bills/bills",
+    "pages/wol/wol",
+    "pages/wol/detail"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -11,5 +13,6 @@
     "navigationBarTextStyle": "black"
   },
   "style": "v2",
-  "sitemapLocation": "sitemap.json"
+  "sitemapLocation": "sitemap.json",
+  "darkmode": false
 }

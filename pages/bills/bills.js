@@ -1,4 +1,5 @@
 // miniprogram/pages/bills/bills.js
+var app = getApp()
 var util = require('../../utils/util.js')
 
 Page({
@@ -139,7 +140,7 @@ Page({
     wx.showModal({
       title: '清空账单',
       content: '确定要清空当前账单吗？',
-      confirmColor: '#FA5151',
+      confirmColor: app.globalData.red,
       success(res) {
         if (res.confirm) {
           console.log('清空账单操作: 用户点击确定')

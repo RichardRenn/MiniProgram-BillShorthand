@@ -19,3 +19,18 @@
 .usermotto {
   margin-top: 200px;
 }
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+page {
+  height: 100%;
+}
+
+button {
+  margin-top: 10%;
+}

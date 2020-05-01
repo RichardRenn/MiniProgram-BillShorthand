@@ -72,4 +72,10 @@ Page({
       url: '/pages/bills/bills',
     })
   },
+
+  gotoPageWol: function () {
+    wx.navigateTo({
+      url: '/pages/wol/wol',
+    })
+  },
 })

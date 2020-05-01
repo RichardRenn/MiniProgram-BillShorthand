@@ -1,4 +1,6 @@
 /**app.wxss**/
+@import '/miniprogram_npm/weui-miniprogram/weui-wxss/dist/style/weui.wxss';
+
 .container {
   height: 100%;
   display: flex;
@@ -8,3 +10,17 @@
   padding: 200rpx 0;
   box-sizing: border-box;
 } 
+
+.green {
+  color: #07c160;
+}
+
+.red {
+  color: #fa5151;
+}
+
+
+.hover-scale {
+  opacity: 0.75;
+  transform: scale(0.94, 0.94);
+}

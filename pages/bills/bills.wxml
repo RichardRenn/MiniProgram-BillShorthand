@@ -6,18 +6,18 @@
       <view>test content</view>
     </mp-dialog> -->
     <view class="th">
-      <view class="icon" bindtap="addLine" wx:if="{{isEditMode}}"><mp-icon icon="add2" color="#07c160" type="field" size="{{iconSize}}"></mp-icon></view>
-      <view class="th-td name"><text>品 名</text></view>
+      <view class="icon" hover-class="hover-scale" bindtap="addLine" wx:if="{{isEditMode}}"><mp-icon icon="add2" color="#07c160" type="field" size="{{iconSize}}"></mp-icon></view>
+      <view class="th-td name top-left-radius"><text>品 名</text></view>
       <view class="th-td"><text>数 量</text></view>
       <view class="th-td"><text>单 价</text></view>
-      <view class="th-td money"><text>金 额</text></view>
-      <view class="icon" bindtap="delAllLine" wx:if="{{isEditMode}}"><mp-icon icon="delete" color="#fa5151" type="field" size="{{iconSize}}"></mp-icon></view>
+      <view class="th-td money top-right-radius"><text>金 额</text></view>
+      <view class="icon" hover-class="hover-scale" bindtap="delAllLine" wx:if="{{isEditMode}}"><mp-icon icon="delete" color="#fa5151" type="field" size="{{iconSize}}"></mp-icon></view>
     </view>
 
     <block wx:for="{{lineData}}" wx:key="index">
       <view class="tr">
 
-        <view class="icon" data-idx="{{index}}" bindtap="addPosLine" wx:if="{{isEditMode}}">
+        <view class="icon" hover-class="hover-scale" data-idx="{{index}}" bindtap="addPosLine" wx:if="{{isEditMode}}">
           <mp-icon icon="add2" color="#07c160" type="field" size="{{iconSize}}"></mp-icon>
         </view>
 
@@ -38,7 +38,7 @@
           <text>￥{{item.money}}</text>
         </view>
 
-        <view class="icon" data-idx="{{index}}" bindtap="delPosLine" wx:if="{{isEditMode}}">
+        <view class="icon" hover-class="hover-scale" data-idx="{{index}}" bindtap="delPosLine" wx:if="{{isEditMode}}">
           <mp-icon icon="close2" color="#fa5151" type="field" size="{{iconSize}}"></mp-icon>
         </view>
 
