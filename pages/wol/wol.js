@@ -7,7 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    iconSize: 30,
+    iconSize: 32,
     iconColor: app.globalData.green,
     slideButtons: [{
       type: 'warn',
