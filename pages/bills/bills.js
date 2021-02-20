@@ -1,6 +1,7 @@
 // miniprogram/pages/bills/bills.js
 var app = getApp()
 var util = require('../../utils/util.js')
+var calExp = require('../../utils/calExp.js')
 
 Page({
 
@@ -49,8 +50,16 @@ Page({
    */
   onShow: function () {
     try {
-      var lineData = wx.getStorageSync('billLineData')
-      console.log('onShow数据: ' + lineData)
+      // var lineData = wx.getStorageSync('billLineData')
+      var encodeBillLineData = options.encodeBillLineData
+      if (typeof (encodeBillLineData) != "undefined") {
+        var lineData = JSON.parse(decodeURIComponent(encodeBillLineData))
+        console.log('onShow数据 - 来自URL参数:' + lineData)
+      } else {
+        var lineData = wx.getStorageSync('billLineData')
+        console.log('onShow数据 - 来自本地存储:' + lineData)
+      }
+
       if (lineData) {
         this.refreshData(lineData)
       }
@@ -118,8 +127,8 @@ Page({
     var lineData = this.data.lineData
     var newLineData = {
       name: "",
-      num: 1,
-      price: 0,
+      num: "1",
+      price: "0",
       money: "0.00",
     }
     lineData.push(newLineData) // 添加数组内容，使for循环多一次
@@ -176,7 +185,8 @@ Page({
     } else if (prop == "price") {
       lineData[idx].price = value
     }
-    lineData[idx].money = (lineData[idx].num * lineData[idx].price).toFixed(2)
+    // console.log(typeof(calExp.calExp(lineData[idx].price)))
+    lineData[idx].money = (calExp.calExp(lineData[idx].num) * calExp.calExp(lineData[idx].price)).toFixed(2)
 
     this.refreshData(lineData)
     // console.log(this.data.lineData)
@@ -192,8 +202,8 @@ Page({
     var idx = dataset.idx
     var newLineData = {
       name: "",
-      num: 1,
-      price: 0,
+      num: "1",
+      price: "0",
       money: "0.00",
     }
     lineData.splice(idx+1, 0, newLineData) // 在数组中对应位置增加元素

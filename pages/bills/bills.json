@@ -3,5 +3,5 @@
     "mp-dialog": "/miniprogram_npm/weui-miniprogram/dialog/dialog",
     "mp-icon": "/miniprogram_npm/weui-miniprogram/icon/icon"
   },
-  "navigationBarTitleText": "账单计算器"
+  "navigationBarTitleText": "自动计算器"
 }

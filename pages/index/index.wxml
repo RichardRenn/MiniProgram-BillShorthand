@@ -10,12 +10,12 @@
   <view class="usermotto">
     <text class="user-motto">{{motto}}</text>
   </view> -->
-  <!-- <button hover-class="hover-scale" type="primary" bindtap="gotoPageBills">账单计算器</button> -->
+  <!-- <button hover-class="hover-scale" type="primary" bindtap="gotoPageBills">自动计算器</button> -->
   <!-- <button hover-class="hover-scale" type="primary" bindtap="gotoPageWol">网络唤醒(WOL)</button> -->
-  <!-- <view class="view-btn" hover-class="hover-scale" bindtap="gotoPageBills">账单计算器</view> -->
+  <!-- <view class="view-btn" hover-class="hover-scale" bindtap="gotoPageBills">自动计算器</view> -->
   <!-- <view class="view-btn" hover-class="hover-scale" bindtap="gotoPageWol">网络唤醒(WOL)</view> -->
   <view class="weui-btn-area">
-    <button class="weui-btn" hover-class="hover-scale" type="primary" bindtap="gotoPageBills">账单计算器</button>
+    <button class="weui-btn" hover-class="hover-scale" type="primary" bindtap="gotoPageBills">自动计算器</button>
   </view>
   <view class="weui-btn-area">
     <button class="weui-btn" hover-class="hover-scale" type="primary" bindtap="gotoPageWol">网络唤醒(WOL)</button>

@@ -26,12 +26,11 @@
         </view>
 
         <view class="tr-td {{index%2==1 ? 'td-light-green-backgd' : ''}}">
-          <input data-idx="{{index}}" data-prop="num" class="weui-input" bindinput="changeLineData" type="digit" placeholder="0.00" value="{{item.num}}" disabled="{{!isEditMode}}"/>
+          <input data-idx="{{index}}" data-prop="num" class="weui-input" bindinput="changeLineData" type="text" placeholder="0.00" value="{{item.num}}" disabled="{{!isEditMode}}"/>
         </view>
       
         <view class="tr-td {{index%2==1 ? 'td-light-green-backgd' : ''}}">
-          <!-- <text class="td-text">￥</text> -->
-          <input data-idx="{{index}}" data-prop="price" class="weui-input" bindinput="changeLineData" type="digit" placeholder="0.00" value="{{item.price}}" disabled="{{!isEditMode}}"/>
+          <input data-idx="{{index}}" data-prop="price" class="weui-input" bindinput="changeLineData" type="text" placeholder="0.00" value="{{item.price}}" disabled="{{!isEditMode}}"/>
         </view>
 
         <view class="tr-td {{index%2==1 ? 'td-light-green-backgd' : ''}} money red">
