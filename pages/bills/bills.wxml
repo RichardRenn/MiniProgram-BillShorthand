@@ -1,5 +1,8 @@
 <!--miniprogram/pages/bills/bills.wxml-->
 <view class="main">
+  <!-- <view class="title">
+    <input placeholder="点击输入账单名.." value="{{title}}"  bindinput='changeTitle'/>
+  </view> -->
 
   <view class="table">
     <!-- <mp-dialog title="test" show="{{true}}" bindbuttontap="tapDialogButton" buttons="{{[{text: '取消'}, {text: '确认'}]}}">
@@ -44,14 +47,19 @@
       </view>
     </block>
 
+    <view class="line" wx:if="{{!isEditMode}}"></view>
+
     <view class="bottom-line red">
+      <input placeholder="点击输入账单名.." value="{{title}}"  bindinput='changeTitle'/>
       <text>总计 ￥{{totalAmount}} 元</text>
     </view>
+
   </view>
 
   <view class="menu">
-    <view><button size="mini" type="primary" bindtap='clickSave' disabled="{{!isEditMode}}">保存</button></view>
-    <view><button size="mini" type="primary" bindtap='clickEdit' disabled="{{isEditMode}}">编辑</button></view>
+    <!-- <view><button size="mini" type="primary" bindtap='clickSave' disabled="{{!isEditMode}}">保存</button></view> -->
+    <!-- <view><button size="mini" type="primary" bindtap='clickEdit' disabled="{{isEditMode}}">编辑</button></view> -->
+    <view><button size="mini" type="primary" bindtap='clickEdit'>{{isEditMode ? '完成' : '编辑'}}</button></view>
     <view><button size="mini" type="primary" open-type='share' disabled="{{isEditMode}}">分享</button></view>
   </view>
 

@@ -11,6 +11,7 @@ Page({
   data: {
     iconSize: 25,
     isEditMode: true,
+    title: "",
     lineData: [],
     totalAmount: "0.00",
   },
@@ -19,23 +20,25 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    try {
-      // var lineData = wx.getStorageSync('billLineData')
-      var encodeBillLineData = options.encodeBillLineData
-      if (typeof (encodeBillLineData) != "undefined") {
-        var lineData = JSON.parse(decodeURIComponent(encodeBillLineData))
-        console.log('onLoad数据 - 来自URL参数:' + lineData)
-      } else {
-        var lineData = wx.getStorageSync('billLineData')
-        console.log('onLoad数据 - 来自本地存储:' + lineData)
-      }
+    // try {
+    //   // var lineData = wx.getStorageSync('billLineData')
+    //   var encodeBillLineData = options.encodeBillLineData
+    //   if (typeof (encodeBillLineData) != "undefined") {
+    //     var lineData = JSON.parse(decodeURIComponent(encodeBillLineData))
+    //     var title = options.title
+    //     console.log('onLoad数据 - 来自URL参数:' + title + '--' + lineData)
+    //   } else {
+    //     var lineData = wx.getStorageSync('billLineData')
+    //     var title = wx.getStorageSync('billTitle')
+    //     console.log('onLoad数据 - 来自本地存储:' + title + '--' + lineData)
+    //   }
 
-      if (lineData) {
-        this.refreshData(lineData)
-      }
-    } catch (e) {
-      console.log('onLoad数据加载错误: ' + e)
-    }
+    //   if (lineData) {
+    //     this.refreshLineData(lineData)
+    //   }
+    // } catch (e) {
+    //   console.log('onLoad数据加载错误: ' + e)
+    // }
   },
 
   /**
@@ -50,18 +53,33 @@ Page({
    */
   onShow: function () {
     try {
+      var that = this
+      // 获取当前小程序的页面栈
+      var pages = getCurrentPages()
+      // 数组中索引最大的页面--当前页面
+      var currentPage = pages[pages.length - 1]
+      var options = currentPage.options
+      // 打印出当前页面中的 options
+      // console.log(options)
       // var lineData = wx.getStorageSync('billLineData')
       var encodeBillLineData = options.encodeBillLineData
       if (typeof (encodeBillLineData) != "undefined") {
         var lineData = JSON.parse(decodeURIComponent(encodeBillLineData))
-        console.log('onShow数据 - 来自URL参数:' + lineData)
+        var title = options.title
+        var isEditMode = false
+        console.log('onShow数据 - 来自URL参数:' + title + '--' + lineData)
       } else {
         var lineData = wx.getStorageSync('billLineData')
-        console.log('onShow数据 - 来自本地存储:' + lineData)
+        var title = wx.getStorageSync('billTitle')
+        var isEditMode = true
+        console.log('onShow数据 - 来自本地存储:' + title + '--' + lineData)
       }
-
+      that.setData({
+        title: title,
+        isEditMode: isEditMode
+      })
       if (lineData) {
-        this.refreshData(lineData)
+        that.refreshLineData(lineData)
       }
     } catch (e) {
       console.log('onShow数据加载错误: ' + e)
@@ -72,9 +90,14 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
+    var that = this
+    wx.setStorage({
+      key: "billTitle",
+      data: that.data.title,
+    })
     wx.setStorage({
       key: "billLineData",
-      data: this.data.lineData,
+      data: that.data.lineData,
     })
   },
 
@@ -82,9 +105,14 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
+    var that = this
+    wx.setStorage({
+      key: "billTitle",
+      data: that.data.title,
+    })
     wx.setStorage({
       key: "billLineData",
-      data: this.data.lineData,
+      data: that.data.lineData,
     })
   },
 
@@ -103,17 +131,19 @@ Page({
   },
 
   /**
-   * 用户点击右上角分享
+   * 用户点击右上角分享/转发
    */
   onShareAppMessage: function () {
     try {
-      var curTime = util.formatTime(new Date());
-      var encodeBillLineData = encodeURIComponent(JSON.stringify(this.data.lineData))
-      console.log('onShare数据: ' + encodeBillLineData)
+      var that = this
+      var curTime = util.formatTime(new Date())
+      var encodeBillLineData = encodeURIComponent(JSON.stringify(that.data.lineData))
+      var title = that.data.title
+      // console.log('onShare数据: ' + encodeBillLineData)
       return {
         title: curTime,
-        desc: '账单详情',
-        path: '/pages/bills/bills?encodeBillLineData=' + encodeBillLineData // 路径，传递参数到指定页面。
+        desc: title,
+        path: '/pages/bills/bills?title=' + title + '&encodeBillLineData=' + encodeBillLineData // 路径，传递参数到指定页面。
       }
     } catch (e) {
       console.log('账单页分享错误: ' + e)
@@ -121,23 +151,39 @@ Page({
   },
 
   /**
+   * 改变标题
+   */
+  changeTitle: function (e) {
+    var that = this
+    var dataset = e.currentTarget.dataset
+    var title = e.detail.value
+    console.log(title)
+    that.setData({
+      title: title,
+    })
+    wx.setStorage({
+      key: "billTitle",
+      data: that.data.title,
+    })
+  },
+
+  /**
    * 增加一行
    */
   addLine: function () {
-    var lineData = this.data.lineData
+    var that = this
+    var lineData = that.data.lineData
     var newLineData = {
       name: "",
-      num: "1",
-      price: "0",
       money: "0.00",
     }
     lineData.push(newLineData) // 添加数组内容，使for循环多一次
-    this.setData({
+    that.setData({
       lineData: lineData,
     })
     wx.setStorage({
       key: "billLineData",
-      data: this.data.lineData,
+      data: that.data.lineData,
     })
   },
 
@@ -155,6 +201,12 @@ Page({
           console.log('清空账单操作: 用户点击确定')
           that.setData({
             lineData: [],
+            title: "",
+            totalAmount: "0.00",
+          })
+          wx.setStorage({
+            key: "billTitle",
+            data: that.data.title,
           })
           wx.setStorage({
             key: "billLineData",
@@ -172,7 +224,8 @@ Page({
    * 改变一行的金额
    */
   changeLineData: function (e) {
-    var lineData = this.data.lineData
+    var that = this
+    var lineData = that.data.lineData
     // console.log(e)
     var dataset = e.currentTarget.dataset
     var value = e.detail.value
@@ -185,49 +238,53 @@ Page({
     } else if (prop == "price") {
       lineData[idx].price = value
     }
-    // console.log(typeof(calExp.calExp(lineData[idx].price)))
-    lineData[idx].money = (calExp.calExp(lineData[idx].num) * calExp.calExp(lineData[idx].price)).toFixed(2)
 
-    this.refreshData(lineData)
-    // console.log(this.data.lineData)
+    // console.log(lineData[idx].price)
+    // console.log(typeof(lineData[idx].price))
+    if (typeof (lineData[idx].num) == "undefined" || typeof (lineData[idx].price) == "undefined") {
+      console.log("数量或者单价未定义")
+    } else {
+      lineData[idx].money = (calExp.calExp(lineData[idx].num) * calExp.calExp(lineData[idx].price)).toFixed(2)
+      that.refreshLineData(lineData)
+    }
   },
 
   /**
    * 在当前行后增加一行
    */
   addPosLine: function (e) {
-    var lineData = this.data.lineData
+    var that = this
+    var lineData = that.data.lineData
     // console.log(e)
     var dataset = e.currentTarget.dataset
     var idx = dataset.idx
     var newLineData = {
       name: "",
-      num: "1",
-      price: "0",
       money: "0.00",
     }
     lineData.splice(idx+1, 0, newLineData) // 在数组中对应位置增加元素
 
-    this.refreshData(lineData)
+    that.refreshLineData(lineData)
   },
 
   /**
    * 删除当前行
    */
   delPosLine: function(e) {
-    var lineData = this.data.lineData
+    var that = this
+    var lineData = that.data.lineData
     // console.log(e)
     var dataset = e.currentTarget.dataset
     var idx = dataset.idx
     lineData.splice(idx, 1) // 删除数组中对应的元素
     
-    this.refreshData(lineData)
+    that.refreshLineData(lineData)
   },
   
   /**
    * 刷新数据
    */
-  refreshData: function (lineData) {
+  refreshLineData: function (lineData) {
     try {
       var that = this
       var totalAmount = 0.00
@@ -251,18 +308,20 @@ Page({
   /**
    * 保存
    */
-  clickSave: function () {
-    this.setData({
-      isEditMode: false
-    })
-  },
+  // clickSave: function () {
+  //   this.setData({
+  //     isEditMode: false
+  //   })
+  // },
 
   /**
    * 编辑
    */
   clickEdit: function () {
-    this.setData({
-      isEditMode: true
+    var that = this
+    var isEditMode = that.data.isEditMode
+    that.setData({
+      isEditMode: !isEditMode
     })
   },
 
