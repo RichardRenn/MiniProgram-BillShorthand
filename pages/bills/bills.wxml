@@ -50,7 +50,7 @@
     <view class="line" wx:if="{{!isEditMode}}"></view>
 
     <view class="bottom-line red">
-      <input placeholder="点击输入账单名.." value="{{title}}"  bindinput='changeTitle'/>
+      <input placeholder="{{isEditMode ? '请输入账单名....' : '未命名账单'}}" value="{{title}}"  bindinput='changeTitle' disabled="{{!isEditMode}}"/>
       <text>总计 ￥{{totalAmount}} 元</text>
     </view>
 
