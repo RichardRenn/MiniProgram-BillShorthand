@@ -15,9 +15,6 @@
   <!-- <view class="view-btn" hover-class="hover-scale" bindtap="gotoPageBills">自动计算器</view> -->
   <!-- <view class="view-btn" hover-class="hover-scale" bindtap="gotoPageWol">网络唤醒(WOL)</view> -->
   <view class="weui-btn-area">
-    <button class="weui-btn" hover-class="hover-scale" type="primary" bindtap="gotoPageBills">自动计算器</button>
-  </view>
-  <view class="weui-btn-area">
-    <button class="weui-btn" hover-class="hover-scale" type="primary" bindtap="gotoPageWol">网络唤醒(WOL)</button>
+    <button class="weui-btn" hover-class="hover-scale" type="primary" bindtap="gotoPageBills">账单速记</button>
   </view>
 </view>

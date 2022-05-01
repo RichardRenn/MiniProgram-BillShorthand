@@ -1,18 +1,18 @@
 {
   "pages": [
-    "pages/index/index",
-    "pages/logs/logs",
     "pages/bills/bills",
-    "pages/wol/wol",
-    "pages/wol/detail"
+    "pages/index/index",
+    "pages/logs/logs"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "灰帽子工具",
+    "navigationBarTitleText": "账单速记",
     "navigationBarTextStyle": "black"
   },
+  "useExtendedLib": {
+      "weui": true
+  },
   "style": "v2",
-  "sitemapLocation": "sitemap.json",
-  "darkmode": false
+  "sitemapLocation": "sitemap.json"
 }

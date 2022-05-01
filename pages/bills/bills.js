@@ -141,7 +141,7 @@ Page({
       var title = that.data.title
       // console.log('onShare数据: ' + encodeBillLineData)
       return {
-        title: title + "--" + curTime,
+        title: title + " " + curTime,
         desc: title,
         path: '/pages/bills/bills?title=' + title + '&encodeBillLineData=' + encodeBillLineData // 路径，传递参数到指定页面。
       }
