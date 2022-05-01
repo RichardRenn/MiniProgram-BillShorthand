@@ -1,18 +1,18 @@
 {
-  "pages": [
-    "pages/bills/bills",
-    "pages/index/index",
-    "pages/logs/logs"
-  ],
-  "window": {
-    "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "账单速记",
-    "navigationBarTextStyle": "black"
-  },
-  "useExtendedLib": {
-      "weui": true
-  },
-  "style": "v2",
-  "sitemapLocation": "sitemap.json"
+    "pages": [
+        "pages/bills/bills",
+        "pages/index/index",
+        "pages/logs/logs"
+    ],
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTitleText": "账单速记",
+        "navigationBarTextStyle": "black"
+    },
+    "useExtendedLib": {
+        "weui": true
+    },
+    "style": "v2",
+    "sitemapLocation": "sitemap.json"
 }

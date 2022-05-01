@@ -46,9 +46,7 @@
     "compileType": "miniprogram",
     "libVersion": "2.19.4",
     "appid": "wx2ae6c3d927d99081",
-    "projectname": "miniprogram-tools",
-    "simulatorType": "wechat",
-    "simulatorPluginLibVersion": {},
+    "projectname": "Bill ShortHand",
     "condition": {},
     "editorSetting": {
         "tabIndent": "insertSpaces",

@@ -1,98 +1,98 @@
 /* miniprogram/pages/bills/bills.wxss */
 .main {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .title {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;  
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .table {
-  width: 96%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;  
-  /* align-items: center; */
-  /* border: 1rpx solid #ccc; */
+    width: 96%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* align-items: center; */
+    /* border: 1rpx solid #ccc; */
 }
 
 .th {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  /* background: #ccc; */
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    /* background: #ccc; */
 }
 
 .th-td {
-  width: 20%;
-  /* padding-left: 1rpx; */
-  /* padding-right: 1rpx; */
-  /* padding-top: 8rpx; */
-  /* padding-bottom: 8rpx; */
-  padding: 8rpx 0;
-  text-align: left;
-  overflow: hidden;
-  background: #07c160;
-  font-weight: bold;
-  color: #fff;
-  /* border-top: 1rpx solid #07c160; */
-  /* border-bottom: 1rpx solid #07c160; */
+    width: 20%;
+    /* padding-left: 1rpx; */
+    /* padding-right: 1rpx; */
+    /* padding-top: 8rpx; */
+    /* padding-bottom: 8rpx; */
+    padding: 8rpx 0;
+    text-align: left;
+    overflow: hidden;
+    background: #07c160;
+    font-weight: bold;
+    color: #fff;
+    /* border-top: 1rpx solid #07c160; */
+    /* border-bottom: 1rpx solid #07c160; */
 }
 
 .tr {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  /* background: #ccc; */
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    /* background: #ccc; */
 }
 
 .tr-td {
-  width: 20%;
-  padding: 8rpx 0;
-  text-align: left;
-  overflow: hidden;
-  /* border-left: 1rpx solid rgb(238, 238, 238); */
-  /* border-top: 1rpx solid rgb(238, 238, 238); */
-  /* border-bottom: 1rpx solid rgb(238, 238, 238); */
-  /* border: 1rpx solid rgb(238, 238, 238); */
+    width: 20%;
+    padding: 8rpx 0;
+    text-align: left;
+    overflow: hidden;
+    /* border-left: 1rpx solid rgb(238, 238, 238); */
+    /* border-top: 1rpx solid rgb(238, 238, 238); */
+    /* border-bottom: 1rpx solid rgb(238, 238, 238); */
+    /* border: 1rpx solid rgb(238, 238, 238); */
 }
 
 .top-left-radius {
-  border-top-left-radius: 8rpx;
+    border-top-left-radius: 8rpx;
 }
 
 .top-right-radius {
-  border-top-right-radius: 8rpx;
+    border-top-right-radius: 8rpx;
 }
 
 .name {
-  width: 32%;
-  padding-left: 15rpx;
+    width: 32%;
+    padding-left: 15rpx;
 }
 
 .money {
-  width: 28%;
+    width: 28%;
 }
 
 .icon {
-  /* padding: 5rpx; */
-  width: 8%;
-  /* text-align: center; */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* border: 1rpx solid #ccc; */
+    /* padding: 5rpx; */
+    width: 8%;
+    /* text-align: center; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: 1rpx solid #ccc; */
 }
 
 .td-light-green-backgd {
-  background: rgb(244, 255, 244);
+    background: rgb(244, 255, 244);
 }
 
 /* .td-text {
@@ -100,24 +100,24 @@
 } */
 
 .bottom-line {
-  width: 100%;
-  padding: 8rpx 0;
-  display: flex;
-  flex-direction: row;
-  text-align: center;
-  font-weight: bold;
+    width: 100%;
+    padding: 8rpx 0;
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    font-weight: bold;
 }
 
-.line{
-  width:100%;
-  height:1rpx;
-  background:#07c160;
+.line {
+    width: 100%;
+    height: 1rpx;
+    background: #07c160;
 }
 
 .menu {
-  margin-top: 20rpx;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
+    margin-top: 20rpx;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
 }

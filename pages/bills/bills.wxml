@@ -1,66 +1,70 @@
 <!--miniprogram/pages/bills/bills.wxml-->
 <view class="main">
-  <!-- <view class="title">
+    <!-- <view class="title">
     <input placeholder="点击输入账单名.." value="{{title}}"  bindinput='changeTitle'/>
   </view> -->
 
-  <view class="table">
-    <!-- <mp-dialog title="test" show="{{true}}" bindbuttontap="tapDialogButton" buttons="{{[{text: '取消'}, {text: '确认'}]}}">
+    <view class="table">
+        <!-- <mp-dialog title="test" show="{{true}}" bindbuttontap="tapDialogButton" buttons="{{[{text: '取消'}, {text: '确认'}]}}">
       <view>test content</view>
     </mp-dialog> -->
-    <view class="th">
-      <view class="icon" hover-class="hover-scale" bindtap="addLine" wx:if="{{isEditMode}}"><mp-icon icon="add2" color="#07c160" type="field" size="{{iconSize}}"></mp-icon></view>
-      <view class="th-td name top-left-radius"><text>品 名</text></view>
-      <view class="th-td"><text>数 量</text></view>
-      <view class="th-td"><text>单 价</text></view>
-      <view class="th-td money top-right-radius"><text>金 额</text></view>
-      <view class="icon" hover-class="hover-scale" bindtap="delAllLine" wx:if="{{isEditMode}}"><mp-icon icon="delete" color="#fa5151" type="field" size="{{iconSize}}"></mp-icon></view>
+        <view class="th">
+            <view class="icon" hover-class="hover-scale" bindtap="addLine" wx:if="{{isEditMode}}">
+                <mp-icon icon="add2" color="#07c160" type="field" size="{{iconSize}}"></mp-icon>
+            </view>
+            <view class="th-td name top-left-radius"><text>品 名</text></view>
+            <view class="th-td"><text>数 量</text></view>
+            <view class="th-td"><text>单 价</text></view>
+            <view class="th-td money top-right-radius"><text>金 额</text></view>
+            <view class="icon" hover-class="hover-scale" bindtap="delAllLine" wx:if="{{isEditMode}}">
+                <mp-icon icon="delete" color="#fa5151" type="field" size="{{iconSize}}"></mp-icon>
+            </view>
+        </view>
+
+        <block wx:for="{{lineData}}" wx:key="index">
+            <view class="tr">
+
+                <view class="icon" hover-class="hover-scale" data-idx="{{index}}" bindtap="addPosLine" wx:if="{{isEditMode}}">
+                    <mp-icon icon="add2" color="#07c160" type="field" size="{{iconSize}}"></mp-icon>
+                </view>
+
+                <view class="tr-td {{index%2==1 ? 'td-light-green-backgd' : ''}} name">
+                    <input data-idx="{{index}}" data-prop="name" class="weui-input" bindinput="changeLineData" type="text" placeholder="{{isEditMode ? '请输入..' : '未输入'}}" value="{{item.name}}" disabled="{{!isEditMode}}" />
+                </view>
+
+                <view class="tr-td {{index%2==1 ? 'td-light-green-backgd' : ''}}">
+                    <input data-idx="{{index}}" data-prop="num" class="weui-input" bindinput="changeLineData" type="text" placeholder="0.00" value="{{item.num}}" disabled="{{!isEditMode}}" />
+                </view>
+
+                <view class="tr-td {{index%2==1 ? 'td-light-green-backgd' : ''}}">
+                    <input data-idx="{{index}}" data-prop="price" class="weui-input" bindinput="changeLineData" type="text" placeholder="0.00" value="{{item.price}}" disabled="{{!isEditMode}}" />
+                </view>
+
+                <view class="tr-td {{index%2==1 ? 'td-light-green-backgd' : ''}} money red">
+                    <text>￥{{item.money}}</text>
+                </view>
+
+                <view class="icon" hover-class="hover-scale" data-idx="{{index}}" bindtap="delPosLine" wx:if="{{isEditMode}}">
+                    <mp-icon icon="close2" color="#fa5151" type="field" size="{{iconSize}}"></mp-icon>
+                </view>
+
+            </view>
+        </block>
+
+        <view class="line" wx:if="{{!isEditMode}}"></view>
+
+        <view class="bottom-line red">
+            <input placeholder="{{isEditMode ? '请输入账单名....' : '未命名账单'}}" value="{{title}}" bindinput='changeTitle' disabled="{{!isEditMode}}" />
+            <text>总计 ￥{{totalAmount}} 元</text>
+        </view>
+
     </view>
 
-    <block wx:for="{{lineData}}" wx:key="index">
-      <view class="tr">
-
-        <view class="icon" hover-class="hover-scale" data-idx="{{index}}" bindtap="addPosLine" wx:if="{{isEditMode}}">
-          <mp-icon icon="add2" color="#07c160" type="field" size="{{iconSize}}"></mp-icon>
-        </view>
-
-        <view class="tr-td {{index%2==1 ? 'td-light-green-backgd' : ''}} name">
-          <input data-idx="{{index}}" data-prop="name" class="weui-input" bindinput="changeLineData" type="text" placeholder="{{isEditMode ? '请输入..' : '未输入'}}" value="{{item.name}}" disabled="{{!isEditMode}}"/>
-        </view>
-
-        <view class="tr-td {{index%2==1 ? 'td-light-green-backgd' : ''}}">
-          <input data-idx="{{index}}" data-prop="num" class="weui-input" bindinput="changeLineData" type="text" placeholder="0.00" value="{{item.num}}" disabled="{{!isEditMode}}"/>
-        </view>
-      
-        <view class="tr-td {{index%2==1 ? 'td-light-green-backgd' : ''}}">
-          <input data-idx="{{index}}" data-prop="price" class="weui-input" bindinput="changeLineData" type="text" placeholder="0.00" value="{{item.price}}" disabled="{{!isEditMode}}"/>
-        </view>
-
-        <view class="tr-td {{index%2==1 ? 'td-light-green-backgd' : ''}} money red">
-          <text>￥{{item.money}}</text>
-        </view>
-
-        <view class="icon" hover-class="hover-scale" data-idx="{{index}}" bindtap="delPosLine" wx:if="{{isEditMode}}">
-          <mp-icon icon="close2" color="#fa5151" type="field" size="{{iconSize}}"></mp-icon>
-        </view>
-
-      </view>
-    </block>
-
-    <view class="line" wx:if="{{!isEditMode}}"></view>
-
-    <view class="bottom-line red">
-      <input placeholder="{{isEditMode ? '请输入账单名....' : '未命名账单'}}" value="{{title}}"  bindinput='changeTitle' disabled="{{!isEditMode}}"/>
-      <text>总计 ￥{{totalAmount}} 元</text>
+    <view class="menu">
+        <!-- <view><button size="mini" type="primary" bindtap='clickSave' disabled="{{!isEditMode}}">保存</button></view> -->
+        <!-- <view><button size="mini" type="primary" bindtap='clickEdit' disabled="{{isEditMode}}">编辑</button></view> -->
+        <view><button size="mini" type="primary" bindtap='clickEdit'>{{isEditMode ? '完成' : '编辑'}}</button></view>
+        <view><button size="mini" type="primary" open-type='share' disabled="{{isEditMode}}">分享</button></view>
     </view>
-
-  </view>
-
-  <view class="menu">
-    <!-- <view><button size="mini" type="primary" bindtap='clickSave' disabled="{{!isEditMode}}">保存</button></view> -->
-    <!-- <view><button size="mini" type="primary" bindtap='clickEdit' disabled="{{isEditMode}}">编辑</button></view> -->
-    <view><button size="mini" type="primary" bindtap='clickEdit'>{{isEditMode ? '完成' : '编辑'}}</button></view>
-    <view><button size="mini" type="primary" open-type='share' disabled="{{isEditMode}}">分享</button></view>
-  </view>
 
 </view>
